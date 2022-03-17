@@ -1,0 +1,7 @@
+author: Cangasso
+name: kCore
+# ${project.artifactId}
+version: ${project.version}
+depend: [ProtocolLib, PlaceholderAPI]
+
+main: dev.fearland.cangasso.Core

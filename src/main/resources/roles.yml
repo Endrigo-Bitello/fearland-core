@@ -1,0 +1,61 @@
+roles:
+ administrador:
+  name: '&4Admin'
+  prefix: '&4&lADMIN &4'
+  permission: 'role.admin'
+  alwaysvisible: true
+ gerente:
+  name: '&cGerente'
+  prefix: '&c&lGERENTE &c'
+  permission: 'role.gerente'
+  # nao esconder no lobby
+  alwaysvisible: true
+ moderador:
+  name: '&5Moderador'
+  prefix: '&5&lMOD &5'
+  permission: 'role.moderador'
+  alwaysvisible: true
+ ajudante:
+  name: '&9Ajudante'
+  prefix: '&9&lAJUDANTE &9'
+  permission: 'role.helper'
+  alwaysvisible: true
+ construtor:
+  name: '&eBuilder'
+  prefix: '&e&lBUILDER &e'
+  permission: 'role.construtor'
+  alwaysvisible: true
+ youtuber:
+  name: '&bYouTuber'
+  prefix: '&b&lYT &b'
+  permission: 'role.youtuber'
+  alwaysvisible: false
+ streamer:
+  name: '&5Streamer'
+  prefix: '&5&lSTREAMER &5'
+  permission: 'role.streamer'
+  alwaysvisible: false
+ creator:
+  name: '&bCreator'
+  prefix: '&b&lCREATOR &b'
+  permission: 'role.creator'
+  alwaysvisible: true
+ ultimate:
+  name: '&dUltimate'
+  prefix: '&d&lULTIMATE &d'
+  permission: 'role.ultimate'
+ premium:
+  name: '&6Premium'
+  prefix: '&6&lPREMIUM &6'
+  permission: 'role.premium'
+ light:
+  name: '&aLight'
+  prefix: '&a&lLIGHT &a'
+  permission: 'role.light'
+  broadcast: false
+ membro:
+  name: '&7Membro'
+  prefix: '&7'
+  permission: ''
+  # nao enviar avisos ao entrar no lobby
+  broadcast: false

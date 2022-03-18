@@ -37,7 +37,7 @@ public class CoreTable extends DataTable {
     defaultValues.put("cash", new DataContainer(0L));
     defaultValues.put("role", new DataContainer("Membro"));
     defaultValues.put("deliveries", new DataContainer("{}"));
-    defaultValues.put("preferences", new DataContainer("{\"pv\": 0, \"pm\": 0, \"bg\": 0, \"pl\": 0}"));
+    defaultValues.put("preferences", new DataContainer("{\"pv\": 0, \"pm\": 0, \"bg\": 0, \"pl\": 0, \"fl\": 0, \"mt\": 0, \"ae\": 0, \"cr\": 0, \"fr\": 0}"));
     defaultValues.put("titles", new DataContainer("[]"));
     defaultValues.put("boosters", new DataContainer("{}"));
     defaultValues.put("achievements", new DataContainer("[]"));

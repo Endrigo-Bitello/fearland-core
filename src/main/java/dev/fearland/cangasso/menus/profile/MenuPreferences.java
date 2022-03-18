@@ -3,10 +3,7 @@ package dev.fearland.cangasso.menus.profile;
 import dev.fearland.cangasso.database.data.container.PreferencesContainer;
 import dev.fearland.cangasso.libraries.menu.PlayerMenu;
 import dev.fearland.cangasso.player.Profile;
-import dev.fearland.cangasso.player.enums.BloodAndGore;
-import dev.fearland.cangasso.player.enums.PlayerVisibility;
-import dev.fearland.cangasso.player.enums.PrivateMessages;
-import dev.fearland.cangasso.player.enums.ProtectionLobby;
+import dev.fearland.cangasso.player.enums.*;
 import dev.fearland.cangasso.utils.BukkitUtils;
 import dev.fearland.cangasso.utils.StringUtils;
 import dev.fearland.cangasso.utils.enums.EnumSound;
@@ -19,6 +16,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import dev.fearland.cangasso.Core;
 import dev.fearland.cangasso.menus.MenuProfile;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 public class MenuPreferences extends PlayerMenu {
 
@@ -38,28 +37,64 @@ public class MenuPreferences extends PlayerMenu {
           ItemStack item = evt.getCurrentItem();
 
           if (item != null && item.getType() != Material.AIR) {
-            if (evt.getSlot() == 10 || evt.getSlot() == 11 || evt.getSlot() == 12 || evt.getSlot() == 14 || evt.getSlot() == 15 || evt.getSlot() == 16) {
+            if (evt.getSlot() == 1 || evt.getSlot() == 2 || evt.getSlot() == 3 || evt.getSlot() == 4 || evt.getSlot() == 5 || evt.getSlot() == 6 || evt.getSlot() == 7 || evt.getSlot() == 28|| evt.getSlot() == 29 || evt.getSlot() == 30) {
               EnumSound.CLICK.play(this.player, 0.5F, 2.0F);
-            } else if (evt.getSlot() == 20) {
+            } else if (evt.getSlot() == 10) {
               EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
               profile.getPreferencesContainer().changePlayerVisibility();
               if (!profile.playingGame()) {
                 profile.refreshPlayers();
               }
               new MenuPreferences(profile);
-            } else if (evt.getSlot() == 21) {
+            } else if (evt.getSlot() == 11) {
               EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
               profile.getPreferencesContainer().changePrivateMessages();
               new MenuPreferences(profile);
-            } else if (evt.getSlot() == 23) {
+            } else if (evt.getSlot() == 12) {
               EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
               profile.getPreferencesContainer().changeBloodAndGore();
               new MenuPreferences(profile);
-            } else if (evt.getSlot() == 24) {
+            } else if (evt.getSlot() == 13) {
               EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
               profile.getPreferencesContainer().changeProtectionLobby();
               new MenuPreferences(profile);
-            } else if (evt.getSlot() == 40) {
+            } else if (evt.getSlot() == 14) {
+              EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
+              if (player.hasPermission("kcore.fly")) {
+                profile.getPreferencesContainer().changeFly();
+                new MenuPreferences(profile);
+                final BukkitTask runnable = new BukkitRunnable() {
+                  @Override
+                  public void run() {
+                    if (profile.getPreferencesContainer().getFly() == Fly.ATIVADO) {
+                      player.setAllowFlight(true);
+                    } else if (profile.getPreferencesContainer().getFly() == Fly.DESATIVADO) {
+                      player.setAllowFlight(false);
+                    }
+                    cancel();
+                  }
+                }.runTaskLater(Core.getInstance(), 1);
+              } else {
+                player.sendMessage("§cVocê não possui permissão para fazer isso.");
+                EnumSound.ENDERMAN_TELEPORT.play(player, 1.0F, 0.5F);
+              }
+            } else if (evt.getSlot() == 15) {
+              EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
+              profile.getPreferencesContainer().changeMention();
+              new MenuPreferences(profile);
+            } else if (evt.getSlot() == 16) {
+              EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
+              profile.getPreferencesContainer().changeEntry();
+              new MenuPreferences(profile);
+            } else if (evt.getSlot() == 37) {
+              EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
+              profile.getPreferencesContainer().changeClanRequest();
+              new MenuPreferences(profile);
+            } else if (evt.getSlot() == 38) {
+              EnumSound.ITEM_PICKUP.play(this.player, 0.5F, 2.0F);
+              profile.getPreferencesContainer().changePartyRequest();
+              new MenuPreferences(profile);
+            } else if (evt.getSlot() == 49) {
               EnumSound.CLICK.play(this.player, 0.5F, 2.0F);
               new MenuProfile(profile);
             }
@@ -70,49 +105,61 @@ public class MenuPreferences extends PlayerMenu {
   }
 
   public MenuPreferences(Profile profile) {
-    super(profile.getPlayer(), "Preferências", 5);
+    super(profile.getPlayer(), "Preferências", 6);
 
     PreferencesContainer pc = profile.getPreferencesContainer();
 
-    this.setItem(9, BukkitUtils.deserializeItemStack("FEATHER : 1 : nome>&aVoar : desc>&7Decida se quer manter o modo\n&7voar habilitado nos lobbies."));
-    this.setItem(18, BukkitUtils.deserializeItemStack("INK_SACK:10 : 1 : nome>&aAtivado : desc>&fEstado &aAtivado\n \n&7Exclusivo para &aVIP&7.\n \n&eClique para modificar!"));
-
     PlayerVisibility pv = pc.getPlayerVisibility();
-    this.setItem(10, BukkitUtils.deserializeItemStack("347 : 1 : nome>&aJogadores : desc>&7Ative ou desative os\n&7jogadores no lobby."));
-    this.setItem(19, BukkitUtils.deserializeItemStack(
+    this.setItem(1, BukkitUtils.deserializeItemStack("347 : 1 : nome>&aJogadores : desc>&7Ative ou desative os\n&7jogadores no lobby."));
+    this.setItem(10, BukkitUtils.deserializeItemStack(
             "INK_SACK:" + pv.getInkSack() + " : 1 : nome>" + pv.getName() + " : desc>&fEstado: &7" + StringUtils.stripColors(pv.getName()) + "\n \n&eClique para modificar!"));
 
     PrivateMessages pm = pc.getPrivateMessages();
-    this.setItem(11, BukkitUtils.deserializeItemStack("358:2 : 1 : esconder>tudo : nome>&aMensagens privadas : desc>&7Ative ou desative as mensagens\n&7enviadas através do tell."));
-    this.setItem(20, BukkitUtils.deserializeItemStack(
+    this.setItem(2, BukkitUtils.deserializeItemStack("PAPER : 1 : nome>&aMensagens privadas : desc>&7Ative ou desative as mensagens\n&7enviadas através do tell."));
+    this.setItem(11, BukkitUtils.deserializeItemStack(
             "INK_SACK:" + pm.getInkSack() + " : 1 : nome>" + pm.getName() + " : desc>&fEstado: &7" + StringUtils.stripColors(pm.getName()) + "\n \n&eClique para modificar!"));
 
-    ProtectionLobby pl = pc.getProtectionLobby();
-    this.setItem(12, BukkitUtils.deserializeItemStack("NETHER_STAR : 1 : nome>&aProteção no /lobby : desc>&7Ative ou desative o pedido de\n&7confirmação ao utilizar /lobby."));
-    this.setItem(21, BukkitUtils.deserializeItemStack(
-            "INK_SACK:" + pl.getInkSack() + " : 1 : nome>" + pl.getName() + " : desc>&fEstado: &7" + StringUtils.stripColors(pl.getName()) + "\n \n&eClique para modificar!"));
-
     BloodAndGore bg = pc.getBloodAndGore();
-    this.setItem(13, BukkitUtils.deserializeItemStack("SKULL_ITEM:3 : 1 : nome>&aSangue : desc>&7Ative ou desative as partículas\n&7de sangue no PvP. : skin>eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjNiYzBjNWVhMTg2YzI3YTY0ZjZjMjBkYTE5ODU1ZDJlMDkxMGQ0OTVmMDk4NWJmYjAxY2EzYzdkMTUxNGNhNyJ9fX0="));
-    this.setItem(22, BukkitUtils.deserializeItemStack(
+    this.setItem(3, BukkitUtils.deserializeItemStack("REDSTONE : 1 : nome>&aViolência : desc>&7Ative ou desative as partículas\n&7de sangue no PvP."));
+    this.setItem(12, BukkitUtils.deserializeItemStack(
             "INK_SACK:" + bg.getInkSack() + " : 1 : nome>" + bg.getName() + " : desc>&fEstado: &7" + StringUtils.stripColors(bg.getName()) + "\n \n&eClique para modificar!"));
 
+    ProtectionLobby pl = pc.getProtectionLobby();
+    this.setItem(4, BukkitUtils.deserializeItemStack("NETHER_STAR : 1 : nome>&aProteção no /lobby : desc>&7Ative ou desative o pedido de\n&7confirmação ao utilizar /lobby."));
+    this.setItem(13, BukkitUtils.deserializeItemStack(
+            "INK_SACK:" + pl.getInkSack() + " : 1 : nome>" + pl.getName() + " : desc>&fEstado: &7" + StringUtils.stripColors(pl.getName()) + "\n \n&eClique para modificar!"));
 
-    this.setItem(14, BukkitUtils.deserializeItemStack("BANNER:9 : 1 : nome>&aConvites de party : desc>&7Ative ou desative os convites\n&7para parties."));
-    this.setItem(23, BukkitUtils.deserializeItemStack("INK_SACK:10 : 1 : nome>&aAtivado : desc>&fEstado &aAtivado\n\n&eClique para modificar!"));
+    if (player.hasPermission("kcore.fly")) {
+      Fly fl = pc.getFly();
+      this.setItem(5, BukkitUtils.deserializeItemStack("FEATHER : 1 : nome>&aModo Fly : desc>&7Ative ou desative o modo voar."));
+      this.setItem(14, BukkitUtils.deserializeItemStack(
+              "INK_SACK:" + fl.getInkSack() + " : 1 : nome>" + fl.getName() + " : desc>&fEstado: &7" + StringUtils.stripColors(fl.getName()) + "\n \n&eClique para modificar!"));
+    } else {
+      this.setItem(5, BukkitUtils.deserializeItemStack("FEATHER : 1 : nome>&aModo Fly : desc>&7Ative ou desative o modo voar."));
+      this.setItem(14, BukkitUtils.deserializeItemStack("INK_SACK:8 : 1 : nome>&cDesativado : desc>&fEstado: &7Desativado \n \n&cÉ necessário ter &aVIP &cpara fazer isso."));
+    }
 
-    this.setItem(15, BukkitUtils.deserializeItemStack("LEATHER_CHESTPLATE : 1 : pintar>BLUE : esconder>tudo : nome>&aSolicitações de amizade : desc>&7Ative ou desative os convites\n&7de amizade de outros jogadores."));
-    this.setItem(24, BukkitUtils.deserializeItemStack("INK_SACK:10 : 1 : nome>&aAtivado : desc>&fEstado: &aAtivado\n \n&eClique para modificar!"));
+    Mention mt = pc.getMention();
+    this.setItem(6, BukkitUtils.deserializeItemStack("358:0 : 1 : esconder>tudo : nome>&aMenção no Chat : desc>&7Ative ou desative a menção no\n&7chat."));
+    this.setItem(15, BukkitUtils.deserializeItemStack(
+            "INK_SACK:" + mt.getInkSack() + " : 1 : nome>" + mt.getName() + " : desc>&fEstado: &7" + StringUtils.stripColors(mt.getName()) + "\n \n&eClique para modificar!"));
 
-    this.setItem(16, BukkitUtils.deserializeItemStack("ITEM_FRAME : 1 : nome>&aConvites de clans : desc>&7Ative ou desative o convite\n&7de membros de clans."));
-    this.setItem(25, BukkitUtils.deserializeItemStack("INK_SACK:10 : 1 : nome>&aAtivado : desc>&fEstado: &aAtivado\n \n&eClique para modificar!"));
+    AnnounceEntry ae = pc.getAnnounceEntry();
+    this.setItem(7, BukkitUtils.deserializeItemStack("386 : 1 : esconder>tudo : nome>&aAnunciar entrada no lobby : desc>&7Ative ou desative a sua entrada no\n&7lobby."));
+    this.setItem(16, BukkitUtils.deserializeItemStack(
+            "INK_SACK:" + ae.getInkSack() + " : 1 : nome>" + ae.getName() + " : desc>&fEstado: &7" + StringUtils.stripColors(ae.getName()) + "\n \n&eClique para modificar!"));
 
-    this.setItem(17, BukkitUtils.deserializeItemStack("JACK_O_LANTERN : 1 : nome>&aAtividade de amigos : desc>&7Ative ou desative alertas de\n&7entrada ou saída dos amigos."));
-    this.setItem(26, BukkitUtils.deserializeItemStack("INK_SACK:10 : 1 : nome>&aAtivado : desc>&fEstado: &aAtivado\n \n&eClique para modificar!"));
+    ClanRequest cr = pc.getClanRequest();
+    this.setItem(28, BukkitUtils.deserializeItemStack("DIAMOND_SWORD : 1 : esconder>tudo : nome>&aPedido de clans : desc>&7Ative ou desative pedidos de clans."));
+    this.setItem(37, BukkitUtils.deserializeItemStack(
+            "INK_SACK:" + cr.getInkSack() + " : 1 : nome>" + cr.getName() + " : desc>&fEstado: &7" + StringUtils.stripColors(cr.getName()) + "\n \n&eClique para modificar!"));
 
+    PartyRequest fr = pc.getPartyRequest();
+    this.setItem(29, BukkitUtils.deserializeItemStack("38 : 1 : esconder>tudo : nome>&aPedido de party : desc>&7Ative ou desative pedidos de party."));
+    this.setItem(38, BukkitUtils.deserializeItemStack(
+            "INK_SACK:" + fr.getInkSack() + " : 1 : nome>" + fr.getName() + " : desc>&fEstado: &7" + StringUtils.stripColors(fr.getName()) + "\n \n&eClique para modificar!"));
 
-
-    this.setItem(40, BukkitUtils.deserializeItemStack("INK_SACK:1 : 1 : nome>&cVoltar : desc>&7Para o Perfil"));
+    this.setItem(49, BukkitUtils.deserializeItemStack("ARROW : 1 : nome>&cVoltar"));
 
     this.register(Core.getInstance());
     this.open();

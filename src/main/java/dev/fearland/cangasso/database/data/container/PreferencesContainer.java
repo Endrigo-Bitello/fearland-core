@@ -40,13 +40,19 @@ public class PreferencesContainer extends AbstractContainer {
     preferences.clear();
   }
 
+  public void changeFly() {
+    JSONObject preferences = this.dataContainer.getAsJsonObject();
+    preferences.put("fl", ProtectionLobby.getByOrdinal((long) preferences.get("fl")).next().ordinal());
+    this.dataContainer.set(preferences.toString());
+    preferences.clear();
+  }
 
-  /* public void changeMention() {
+  public void changeMention() {
     JSONObject preferences = this.dataContainer.getAsJsonObject();
     preferences.put("mt", Mention.getByOrdinal((long) preferences.get("mt")).next().ordinal());
     this.dataContainer.set(preferences.toString());
     preferences.clear();
-  } */
+  }
   public void changeEntry() {
     JSONObject preferences = this.dataContainer.getAsJsonObject();
     preferences.put("ae", AnnounceEntry.getByOrdinal((long) preferences.get("ae")).next().ordinal());
@@ -81,10 +87,12 @@ public class PreferencesContainer extends AbstractContainer {
   public ProtectionLobby getProtectionLobby() {
     return ProtectionLobby.getByOrdinal((long) this.dataContainer.getAsJsonObject().get("pl"));
   }
-
-  //public Mention getMention() {
-    //return Mention.getByOrdinal((long) this.dataContainer.getAsJsonObject().get("mt"));
-  //}
+  public Fly getFly() {
+    return Fly.getByOrdinal((long) this.dataContainer.getAsJsonObject().get("fl"));
+  }
+  public Mention getMention() {
+    return Mention.getByOrdinal((long) this.dataContainer.getAsJsonObject().get("mt"));
+  }
   public AnnounceEntry getAnnounceEntry() {
     return AnnounceEntry.getByOrdinal((long) this.dataContainer.getAsJsonObject().get("ae"));
   }

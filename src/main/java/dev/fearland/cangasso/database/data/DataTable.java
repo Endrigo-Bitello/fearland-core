@@ -27,7 +27,7 @@ public abstract class DataTable {
     TABLES.add(new BedWarsTable());
     TABLES.add(new TheBridgeTable());
     TABLES.add(new MurderTable());
-   // TABLES.add(new BuildBattleTable());
+    TABLES.add(new BuildBattleTable());
   }
 
   public static void registerTable(DataTable table) {

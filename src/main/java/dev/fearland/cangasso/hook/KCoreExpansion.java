@@ -124,6 +124,41 @@ public class KCoreExpansion extends PlaceholderExpansion {
         return StringUtils.formatNumber(profile.getCoins(table));
       }
 
+
+    } else if (params.startsWith("BuildBattle_")) {
+      String table = "kCoreBuildBattle";
+      String value = params.replace("BuildBattle_", "");
+      if(value.equals("wins") || value.equals("games")) {
+        return StringUtils.formatNumber(profile.getStats(table, "1v1" + value, "2v2" + value));
+      } else if (value.equals("1v1wins") || value.equals("2v2wins")) {
+        return StringUtils.formatNumber(profile.getStats(table, value));
+      } else if (value.equals("1v1games") || value.equals("2v2games")) {
+        return StringUtils.formatNumber(profile.getStats(table, value));
+      } else if (value.equals("points")) {
+        return StringUtils.formatNumber(profile.getStats(table, value));
+      } else if (value.equals("coins")) {
+        return StringUtils.formatNumber(profile.getCoins(table));
+      }
+
+
+
+ /*
+    } else if (params.startsWith("BuildBattle_")) {
+      String table = "kCoreBuildBattle";
+      String value = params.replace("BuildBattle_", "");
+      if (value.equals("1v1wins")
+      || value.equals("2v2wins")
+      || value.equals("1v1games")
+      || value.equals("2v2games")
+      || value.equals("points"))
+        return StringUtils.formatNumber(profile.getStats(table, new String[] { value }));
+      if (value.equals("coins"))
+        return StringUtils.formatNumber(profile.getCoins(table));
+
+  */
+
+
+
     } else if (params.startsWith("BedWars_")) {
       String table = "kCoreBedWars";
       String value = params.replace("BedWars_", "");

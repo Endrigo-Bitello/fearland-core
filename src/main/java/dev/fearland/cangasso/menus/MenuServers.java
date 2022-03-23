@@ -77,9 +77,12 @@ public class MenuServers extends UpdatablePlayerMenu {
       NetworkBooster nbb = Booster.getNetworkBooster(bed);
       networkbed.append(nbb == null ? "" : "\n&7Multiplicador de Coins: &6" + nbb.getMultiplier() + "x\n&8➟ Ativado por: &6" + Role.getColored(nbb.getBooster() + "\n "));
 
-      this.setItem(serverItem.getSlot(),
-      BukkitUtils.deserializeItemStack(serverItem.getIcon().replace("{players}", StringUtils.formatNumber(ServerItem.getServerCount(serverItem))).replace("{booster_skywars}", networkbed.toString())));
+      //this.setItem(serverItem.getSlot(),
+              //this.setItem(serverItem.getSlot(),
+            //  BukkitUtils.deserializeItemStack(serverItem.getIcon().replace("{players}", StringUtils.formatNumber(ServerItem.getServerCount(serverItem))).replace("{booster_skywars}", networksky.toString()).replace("{booster_bedwars}", networkbed.toString());
 
+              this.setItem(serverItem.getSlot(), BukkitUtils.deserializeItemStack(serverItem.getIcon().replace("{players}", StringUtils.formatNumber(ServerItem.getServerCount(
+                      serverItem))).replace("{booster_skywars}", networksky.toString()).replace("{booster_bedwars}", networkbed.toString())));
 
 
     }

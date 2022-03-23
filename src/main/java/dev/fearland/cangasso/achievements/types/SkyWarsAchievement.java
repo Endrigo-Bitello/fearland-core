@@ -17,7 +17,7 @@ public class SkyWarsAchievement extends Achievement {
   public SkyWarsAchievement(SkyWarsReward reward, String id, String name, String desc, int reach, String... stats) {
     super("sw-" + id, name);
     this.reward = reward;
-    this.icon = "%material% : 1 : nome>%name% : desc>" + desc + "\n \n&fProgresso: %progress%";
+    this.icon = "%material% : 1 : nome>%name% : desc>" + desc + "\n \n&7Progresso: %progress%";
     this.stats = stats;
     this.reach = reach;
   }
@@ -39,17 +39,22 @@ public class SkyWarsAchievement extends Achievement {
     }
 
     return BukkitUtils.deserializeItemStack(
-      this.icon.replace("%material%", current == this.reach ? "ENCHANTED_BOOK" : "BOOK").replace("%name%", (current == this.reach ? "&a" : "&c") + this.getName())
+      this.icon.replace("%material%", current == this.reach ? "PAPER" : "COAL_BLOCK").replace("%name%", (current == this.reach ? "&a" : "&c") + this.getName())
         .replace("%current%", StringUtils.formatNumber(current)).replace("%reach%", StringUtils.formatNumber(this.reach))
         .replace("%progress%", (current == this.reach ? "&a" : current > this.reach / 2 ? "&7" : "&c") + current + "/" + this.reach));
   }
 
   public static void setupAchievements() {
     Achievement.addAchievement(
-      new SkyWarsAchievement(new CoinsReward(100), "1k1", "Assassino (Solo)", "&7Abata um total de %reach%\n&7jogadores para receber:\n \n &8• &6100 Coins", 50, "1v1kills"));
+      new SkyWarsAchievement(new CoinsReward(150), "1k1", "Assassino em série", "&7Tire a vida de %reach% inimigos no\n&7modo solo.\n \n&7Recompensa: &6500 &7Coins", 10, "1v1kills"));
+
     Achievement.addAchievement(
-      new SkyWarsAchievement(new CoinsReward(500), "1k2", "Assassino Mestre (Solo)", "&7Abata um total de %reach%\n&7jogadores para receber:\n \n &8• &6500 Coins", 250,
+      new SkyWarsAchievement(new CoinsReward(200), "1k2", "Competitivo", "&7Tire a vida de %reach% inimigos no\n&7modo ranked.\n \n&7Recompensa: &6200 &7Coins", 20, "rankedkills"));
+
+    Achievement.addAchievement(
+      new SkyWarsAchievement(new CoinsReward(400), "1k3", "Sanguinário", "&7Tire a vida de %reach% inimigos\n&7no modo solo:\n \n&7Recompensa: &6500 &7Coins", 100,
         "1v1kills"));
+
     Achievement.addAchievement(
       new SkyWarsAchievement(new CoinsReward(250), "1w1", "Vitorioso (Solo)", "&7Vença um total de %reach%\n&7partidas para receber:\n \n &8• &6250 Coins", 50, "1v1wins"));
     Achievement.addAchievement(

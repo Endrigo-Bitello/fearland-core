@@ -52,7 +52,7 @@ public class Core extends KPlugin {
   private static Core instance;
   public static boolean validInit;
   public static final List<String> warnings = new ArrayList<>();
-  public static final List<String> minigames = Arrays.asList("Sky Wars", "The Bridge", "Murder", "Bed Wars");
+  public static final List<String> minigames = Arrays.asList("Sky Wars", "The Bridge", "Murder", "Bed Wars", "Build Battle");
   public static String minigame = "";
 
   @Override
@@ -255,7 +255,7 @@ public class Core extends KPlugin {
     if (Core.getInstance().getConfig("utils").getBoolean("queue")) {
       if (player != null) {
         player.closeInventory();
-        Queue queue = player.hasPermission("kcore.queue") ? Queue.VIP : Queue.MEMBER;
+        Queue queue = player.hasPermission("core.queue") ? Queue.VIP : Queue.MEMBER;
         QueuePlayer qp = queue.getQueuePlayer(player);
         if (qp != null) {
           if (qp.server.equalsIgnoreCase(name)) {

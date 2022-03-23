@@ -5,10 +5,10 @@ import dev.fearland.cangasso.utils.StringUtils;
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum EnumRarity {
-  DIVINO("§bDivino", 10),
-  EPICO("§6Épico", 25),
-  RARO("§dRaro", 50),
-  COMUM("§9Comum", 100);
+  DIVINO("§cLendário", 10),
+  EPICO("§dÉpico", 25),
+  RARO("§9Raro", 50),
+  COMUM("§aComum", 100);
 
   private String name;
   private int percentage;

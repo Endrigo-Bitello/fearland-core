@@ -33,6 +33,7 @@ public class Bungee extends Plugin {
   public void onEnable() {
     saveDefaultConfig();
 
+
     Database.setupDatabase(
       config.getString("database.tipo"),
       config.getString("database.mysql.host"),

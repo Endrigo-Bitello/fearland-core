@@ -18,7 +18,7 @@ public class PagedMenu {
   protected Map<Integer, ItemStack> slots = new HashMap<>();
 
   public int previousPage = 45, nextPage = 53;
-  public String previousStack = "INK_SACK:8 : 1 : nome>&aPágina {page}", nextStack = "INK_SACK:10 : 1 : nome>&aPágina {page}";
+  public String previousStack = "ARROW : 1 : nome>&aPágina anterior : desc>&7Voltar para página {page}", nextStack = "ARROW : 1 : nome>&aPróxima página : desc>&7Ir para página {page}";
 
   public PagedMenu(String name) {
     this(name, 3);

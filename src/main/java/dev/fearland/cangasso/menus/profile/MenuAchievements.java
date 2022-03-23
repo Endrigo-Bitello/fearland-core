@@ -54,7 +54,7 @@ public class MenuAchievements extends PlayerMenu {
               new MenuAchievementsList<>(profile, "Bed Wars", BedWarsAchievement.class);
             } else if (evt.getSlot() == 31) {
               EnumSound.CLICK.play(this.player, 0.5F, 2.0F);
-              new MenuProfile(profile);
+              player.closeInventory();
             }
           }
         }
@@ -95,7 +95,7 @@ public class MenuAchievements extends PlayerMenu {
     this.setItem(16, BukkitUtils.deserializeItemStack("BED : 1 : nome>&aBed Wars : desc>&fDesafios: " + color + completed + "/" + max + "\n \n&eClique para visualizar!"));
 
 
-    this.setItem(31, BukkitUtils.deserializeItemStack("INK_SACK:1 : 1 : nome>&cVoltar"));
+    this.setItem(31, BukkitUtils.deserializeItemStack("ARROW : 1 : nome>&cFechar"));
 
     this.register(Core.getInstance());
     this.open();
